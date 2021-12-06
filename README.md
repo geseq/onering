@@ -35,7 +35,7 @@ There are 2 tests in the package that intentionally use value types to demonstra
 
 ### Simplest case
 ```go
-   import "github.com/pltr/onering"
+   import "github.com/geseq/onering"
    var queue = onering.New{Size: 8192}.MPMC()
 
    var src = int64(5)
@@ -53,7 +53,7 @@ There are 2 tests in the package that intentionally use value types to demonstra
 Batching consumption is strongly recommended in all single consumer cases, it's expected to have both higher throughput and lower latency
 
 ```go
-    import "github.com/pltr/onering"
+    import "github.com/geseq/onering"
     var queue = onering.New{Size: 8192}.SPSC()
 
     var src = int64(5)

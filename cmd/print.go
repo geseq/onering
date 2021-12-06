@@ -2,7 +2,7 @@
 
 package main
 
-import "github.com/pltr/onering"
+import "github.com/geseq/onering"
 
 func main() {
 	onering.PrintSizes()

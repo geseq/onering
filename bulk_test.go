@@ -3,8 +3,6 @@
 package onering
 
 import (
-	"fmt"
-	"github.com/codahale/hdrhistogram"
 	"runtime"
 	"sync"
 	"testing"
@@ -62,7 +60,6 @@ func BenchmarkResponseTimesRing(b *testing.B) {
 	}(b.N)
 
 	wg.Wait()
-	recordLatencyDistribution("BenchmarkResponseTimesRing", diffs)
 }
 
 func BenchmarkResponseTimesChannel(b *testing.B) {
@@ -98,27 +95,4 @@ func BenchmarkResponseTimesChannel(b *testing.B) {
 	}(b.N)
 
 	wg.Wait()
-	recordLatencyDistribution("BenchmarkResponseTimesChannel", diffs)
-}
-
-func recordLatencyDistribution(name string, diffs []int64) {
-	fmt.Printf("[Sample size: %v messages] ", sampleTimes)
-	histogram := hdrhistogram.New(1, 1000000, 5)
-	for _, d := range diffs {
-		if d != 0 {
-			histogram.RecordValue(d)
-		}
-	}
-
-	fmt.Printf("50: %dns\t75: %dns\t90: %dns\t99: %dns\t99.9: %dns\t99.99: %dns\t99.999: %dns\t99.9999: %dns\n",
-		histogram.ValueAtQuantile(50),
-		histogram.ValueAtQuantile(75),
-		histogram.ValueAtQuantile(90),
-		histogram.ValueAtQuantile(99),
-		histogram.ValueAtQuantile(99.9),
-		histogram.ValueAtQuantile(99.99),
-		histogram.ValueAtQuantile(99.999),
-		histogram.ValueAtQuantile(99.9999))
-
-	//histwriter.WriteDistributionFile(histogram, histwriter.Percentiles{50, 75, 90, 99, 99.9, 99.99, 99.999, 99.9999}, 1.0, name+".histogram")
 }

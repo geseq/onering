@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/pltr/onering"
+
+	"github.com/geseq/onering"
 )
 
 func simple() {
